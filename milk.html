@@ -1,0 +1,42 @@
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+	<svg id="milk" width="130" height="400"></svg>
+	<svg id="milk2" width="150" height="400"></svg>
+	<svg id="milk3" width="400" height="500"></svg>
+<script>
+var milk=[{"x":91,"y":40},
+		  {"x":112,"y":40},
+		  {"x":110,"y":48},
+		  {"x":124,"y":81},
+		  {"x":125,"y":151},
+		  {"x":77,"y":151},
+		  {"x": 78,"y":81},
+		  {"x":93,"y":48},
+		  {"x":91,"y":40},
+		  {"x":112,"y":40}];
+
+var line=[{"x":127,"y":101},
+		  {"x":75,"y":101}];
+
+var lineFunction=d3.svg.line().x(function(d){return d.x;})
+				 .y(function(d){return d.y;}).interpolate("cardinal");
+
+var svg=d3.select("svg");
+var grad=svg.append("defs").append("linearGradient").attr("id", "grad").attr("x1", "0%").attr("x2", "0%").attr("y1", "100%").attr("y2", "0%");
+
+grad.append("stop").attr("offset", "50%").style("stop-color", "#FDF5E6").append("path");
+grad.append("stop").attr("offset", "50%").style("stop-color", "white");
+
+var smallmilk=d3.select("#milk").append("path").attr("d",lineFunction(milk)+lineFunction(line)).attr("stroke","black").attr("stroke-width",2).attr("fill","url(#grad)").attr("transform","translate(-50,75)");
+
+var mediummilk=d3.select("#milk2").append("path").attr("d",lineFunction(milk)+lineFunction(line)).attr("stroke","black").attr("stroke-width",2).attr("fill","url(#grad)").attr("transform","scale(1.5,1.5),translate(-50,0)");
+
+var largemilk=d3.select("#milk3").append("path").attr("d",lineFunction(milk)+lineFunction(line)).attr("stroke","black").attr("stroke-width",1).attr("fill","url(#grad)").attr("transform","scale(3,3),translate(-50,-37)");
+
+</script>
+</body>
+</html>
